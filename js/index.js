@@ -25,6 +25,7 @@ const fetchAllBooks = () => {
 					const description = document.createElement("p")
 					const img = document.createElement("img")
 					const likeButton = document.createElement("button")
+					const userList = document.createElement("ul")
 
 					title.textContent = book.title
 					subtitle.textContent = book.subtitle
@@ -33,6 +34,10 @@ const fetchAllBooks = () => {
 					img.src = book.img_url
 					img.alt = book.title
 					likeButton.textContent = "LIKE"
+
+					book.users.forEach((user) => {
+						userList.innerHTML += `<li>${user.username}</li>`
+					})
 
 					showPanel.innerHTML = ""
 					// showPanel.removeChild(title)
@@ -63,6 +68,7 @@ const fetchAllBooks = () => {
 							.then((response) => response.json())
 							.then((updatedBook) => {
 								console.log(updatedBook)
+								userList.innerHTML += `<li>${currentUser.username}</li>`
 							})
 					})
 
@@ -72,6 +78,7 @@ const fetchAllBooks = () => {
 						author,
 						description,
 						img,
+						userList,
 						likeButton
 					)
 				})
